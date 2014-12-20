@@ -6,9 +6,13 @@ public class EnemyManager : MonoBehaviour {
 
     public int EncounterSec;
 
-    public GameObject EnemyPrefab;
+    public GameObject EnemyPrefab1;
+    public GameObject EnemyPrefab2;
 
     public Main main;
+
+    public int EnemiesBeforeBoss;
+    private int bossCounter = 0;
 
     private Dictionary<LineType, Enemy> enemies;
 
@@ -42,12 +46,22 @@ public class EnemyManager : MonoBehaviour {
                 lastInitiation = Time.time;
             }
         }
-        
     }
 
     public void InitiateEnemy(LineType line)
     {
-        GameObject obj = Instantiate(EnemyPrefab) as GameObject;
+        GameObject obj;
+        if (bossCounter >= EnemiesBeforeBoss)
+        {
+            obj = Instantiate(EnemyPrefab2) as GameObject;
+            bossCounter = 0;
+        }
+        else
+        {
+            obj = Instantiate(EnemyPrefab1) as GameObject;
+            bossCounter += 1;
+        }
+
         obj.transform.parent = transform;
 
         Enemy e = obj.GetComponent<Enemy>();
@@ -129,4 +143,10 @@ public class EnemyManager : MonoBehaviour {
         }
     }
 
+    bool BossEncountered()
+    {
+        return enemies[LineType.UPPER].HitPointMax != 1 ||
+               enemies[LineType.MIDDLE].HitPointMax != 1 ||
+               enemies[LineType.LOWER].HitPointMax != 1;
+    }
 }
