@@ -9,8 +9,5 @@ public class EventCommand_NewEnemy : MonoBehaviour, IEventCommand
 
     public void Run()
     {
-        Enemy NewEnemy = (Enemy)GameObject.Instantiate(Enemy);
-        NewEnemy.X = X;
-        NewEnemy.Y = X;
     }
 }

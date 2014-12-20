@@ -23,12 +23,4 @@ public class EnemyLauncher : Emitter {
 	void Update () {
         base.Update();
 	}
-
-    GameObject InitiateEnemy(GameObject enemy)
-    {
-        Enemy e = enemy.GetComponent<Enemy>();
-        e.DirectionList = this.DirectionList;
-        e.TurningInterval = this.TurningInterval;
-        return enemy;
-    }
 }

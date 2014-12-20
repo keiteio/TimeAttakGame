@@ -1,33 +1,69 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : Bullet {
+public class Enemy : MonoBehaviour {
 
-    public float[] DirectionList { get; set; }
+    public int HitPointMax;
 
-    public float TurningInterval { get; set; }
+    public int AttackSeconds;
 
-    private int DirectionIndex = 0;
+    public int RecoverySeconds;
+    
+    public int WaitSecForAttack;
 
-    private float LastTurned = -1;
+    public GameTimer timer;
+
+    public int HitPoint { get; private set; }
+
+    public bool IsDead {get; private set;}
+
+    public EnemyManager manager;
 
 	// Use this for initialization
 	void Start () {
-        base.Start();
+        HitPoint = HitPointMax;
+        IsDead = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (DirectionList != null)
+        if (HitPoint <= 0)
         {
-            if (Time.time - LastTurned > TurningInterval)
-            {
-                DirectionIndex = (DirectionIndex + 1) % DirectionList.Length;
-            }
-            Force f = this.GetComponent<Force>();
-            f.Direction = DirectionList[DirectionIndex];
+            IsDead = true;
         }
+        else
+        {
+            // 攻撃ウェイト
+            StartCoroutine(Wait(3));
 
-        base.Update();
+            if (!IsDead)
+            {
+                Attack();
+
+            }
+        }
 	}
+    
+    public void Damage(int point){
+        HitPoint -= point;
+
+        if (HitPoint <= 0)
+        {
+            IsDead = true;
+
+            // 取り敢えず直ぐ壊す。
+            GameObject.Destroy(this);
+            Wait(1);
+            manager.OnEnemyDead();
+        }
+    }
+
+    public void Attack(){
+        timer.Seconds -= AttackSeconds;
+    }
+
+    private IEnumerator Wait(int sec)
+    {
+        yield return new WaitForSeconds(sec);
+    }
 }
