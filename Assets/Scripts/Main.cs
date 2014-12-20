@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Main : MonoBehaviour {
 
     public GameTimer timer;
-    public GameObject EnemyManagerPrefab;
 
+    public GameObject EnemyManagerPrefab;
+    public Text RemainedTimeText;
+    public Text TotalScoreText;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +21,17 @@ public class Main : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+        timer.Seconds -= Time.deltaTime;
+
+        int seconds = (int)Mathf.Floor(timer.Seconds);
+        int min = seconds / 60;
+        int sec = seconds % 60;
+        RemainedTimeText.text = string.Format("TimeLimit {0}:{1}", min, sec);
+
+        TotalScoreText.text = string.Format("TotalScore:{0}", TotalScore);
 	}
+
+    public int TotalScore { get; set; }
+
 }

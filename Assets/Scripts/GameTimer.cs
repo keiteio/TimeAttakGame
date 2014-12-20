@@ -3,6 +3,10 @@ using System.Collections;
 
 public class GameTimer : MonoBehaviour{
 
-    public int Seconds { get; set; }
-    
+    public float Seconds { get; set; }
+
+    void Start()
+    {
+        Seconds = 60;
+    }
 }

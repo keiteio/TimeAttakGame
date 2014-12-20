@@ -17,7 +17,9 @@ public class Enemy : MonoBehaviour {
     public int AttackSeconds;
 
     public int RecoverySeconds;
-    
+
+    public int Score;
+
     public int WaitSecForAttack;
 
     public GameTimer timer;

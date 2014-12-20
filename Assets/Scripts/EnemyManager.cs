@@ -77,6 +77,9 @@ public class EnemyManager : MonoBehaviour {
 
     public void OnEnemyDead(LineType line)
     {
+        Enemy enemy = enemies[line];
+        main.timer.Seconds += enemy.RecoverySeconds;
+        main.TotalScore += enemy.Score;
 
         GameObject.Destroy(enemies[line].gameObject);
         enemies.Remove(line);
