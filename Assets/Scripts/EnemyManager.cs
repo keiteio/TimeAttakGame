@@ -100,26 +100,32 @@ public class EnemyManager : MonoBehaviour {
             }
         }
 
+
+        List<LineType> empty = new List<LineType>();
         if (upper)
         {
             Debug.Log("UPPER");
-            return LineType.UPPER;
+            empty.Add(LineType.UPPER);
         }
-        else if (middle)
+        if (middle)
         {
             Debug.Log("MIDDLE");
-            return LineType.MIDDLE;
+            empty.Add(LineType.MIDDLE);
         }
-        else if (lower)
+        if (lower)
         {
             Debug.Log("LOWER");
-            return LineType.LOWER;
+            empty.Add(LineType.LOWER);
         }
-        else
+
+        if (empty.Count == 0)
         {
             Debug.Log("NONE");
             return LineType.NONE;
         }
-
+        else
+        {
+            return empty[(int)(Mathf.Floor(Random.value * empty.Count))];
+        }
     }
 }
