@@ -10,17 +10,10 @@ public class Player : MonoBehaviour {
 	
     public GameTimer timer;
 
-	/*
-    private GameObject moveArea;
-	*/
 	private Emitter shot;
 
 	// Use this for initialization
 	new void Start() {
-		/*
-		base.Start();
-		moveArea = GameObject.Find("MoveArea");
-		*/
 		shot = GetComponent<Emitter>();
 	}
 
@@ -72,40 +65,4 @@ public class Player : MonoBehaviour {
 		return transform.localPosition.y <= Const.Character.MovablePosition.Vertical.MIN;
 	}
 	
-	/*
-	private void OnMoveUp()
-	{
-		other.renderer.material.color = Color.green;
-	}
-
-    private void OnTriggerEnter(Collider other)
-    {
-        other.renderer.material.color = Color.green;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        other.renderer.material.color = Color.grey;
-    }
-
-    float moveAreaLeft()
-    {
-        return -moveArea.transform.localScale.x / 2;
-    }
-
-    float moveAreaRight()
-    {
-        return moveArea.transform.localScale.x / 2;
-    }
-
-    float moveAreaTop()
-    {
-        return moveArea.transform.localScale.y / 2;
-    }
-
-    float moveAreaBottom()
-    {
-        return -moveArea.transform.localScale.y / 2;
-    }
-    */
 }
