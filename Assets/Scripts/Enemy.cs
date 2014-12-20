@@ -1,5 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
+public enum LineType
+{
+    UPPER,
+    MIDDLE,
+    LOWER,
+    NONE,
+}
 
 public class Enemy : MonoBehaviour {
 
@@ -19,6 +28,10 @@ public class Enemy : MonoBehaviour {
 
     public EnemyManager manager;
 
+    public LineType Line { get; set; }
+
+    float lastAttack = 0;
+
 	// Use this for initialization
 	void Start () {
         HitPoint = HitPointMax;
@@ -34,12 +47,11 @@ public class Enemy : MonoBehaviour {
         else
         {
             // 攻撃ウェイト
-            StartCoroutine(Wait(3));
-
-            if (!IsDead)
+            
+            if (!IsDead && Time.time - lastAttack > WaitSecForAttack)
             {
+                Debug.Log("Attack!!!");
                 Attack();
-
             }
         }
 	}
@@ -53,17 +65,12 @@ public class Enemy : MonoBehaviour {
 
             // 取り敢えず直ぐ壊す。
             GameObject.Destroy(this);
-            Wait(1);
-            manager.OnEnemyDead();
+            manager.OnEnemyDead(Line);
         }
     }
 
     public void Attack(){
-        timer.Seconds -= AttackSeconds;
-    }
-
-    private IEnumerator Wait(int sec)
-    {
-        yield return new WaitForSeconds(sec);
+        //timer.Seconds -= AttackSeconds;
+        lastAttack = Time.time;
     }
 }

@@ -4,8 +4,8 @@ using System.Collections;
 public class Main : MonoBehaviour {
 
     public GameTimer timer;
-
     public GameObject EnemyManagerPrefab;
+
 
 	// Use this for initialization
 	void Start () {
