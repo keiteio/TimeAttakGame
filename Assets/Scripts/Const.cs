@@ -11,4 +11,15 @@ public class Const {
 			}
 		}
 	}
+	public class Camera {
+		public class StartPosition {
+			public static readonly float Z = -1500;
+		}
+		public class MainPosition {
+			public static readonly float Z = -500;
+		}
+		public class GameOverPosition {
+			public static readonly float Z = 500;
+		}
+	}
 }
