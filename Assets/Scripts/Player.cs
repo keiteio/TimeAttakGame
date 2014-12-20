@@ -2,34 +2,34 @@ using UnityEngine;
 using System.Collections;
 
 public class Player : MonoBehaviour {
-	private float previousVerticalPosition;
-
 	InputManager input = new InputManager();
+	private float previousVerticalPosition;
+	private float movingSpeed = 0.2f;
 	private bool movingUp = false;
 	private bool movingDown = false;
 	
 	/*
-	private Emitter shot;
     private GameObject moveArea;
 	*/
+	private Emitter shot;
 
 	// Use this for initialization
 	new void Start() {
 		/*
 		base.Start();
-        shot = GetComponent<Emitter>();
 		moveArea = GameObject.Find("MoveArea");
 		*/
+		shot = GetComponent<Emitter>();
 	}
 
 	
 	// Update is called once per frame
 	new void Update() {
-		if (input.Up () && !atTop() && !(movingUp || movingDown)) {
+		if (input.Up () && !atTop() && !isMoving()) {
 			previousVerticalPosition = transform.localPosition.y;
 			movingUp = true;
 		}
-		if (input.Down() && !atBottom() && !(movingUp || movingDown)) {
+		if (input.Down() && !atBottom() && !isMoving()) {
 			previousVerticalPosition = transform.localPosition.y;
 			movingDown = true;
 		}
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour {
 			if (transform.localPosition.y - previousVerticalPosition >= Const.Character.MovablePosition.Vertical.STEP) {
 				movingUp = false;
 			} else {
-				transform.Translate(0, 0.1f, 0);
+				transform.Translate(0, movingSpeed, 0);
 			}
 		}
 		if (movingDown) {
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour {
 				previousVerticalPosition - transform.localPosition.y >= Const.Character.MovablePosition.Vertical.STEP) {
 				movingDown = false;
 			} else {
-				transform.Translate(0, -0.1f, 0);
+				transform.Translate(0, -movingSpeed, 0);
 			}
 		}
 		/*
@@ -69,15 +69,17 @@ public class Player : MonoBehaviour {
         {
 			ForceMap[FORCE_RIGHT].Activate();
 		}
-		
+		*/
+
 		if(input.Shot()){
 			shot.Emit();
 		}
-		
-		*/
-		//base.Update();
 	}
 	
+	private bool isMoving()
+	{
+		return movingUp || movingDown;
+	}
 	private bool atTop()
 	{
 		return transform.localPosition.y >= Const.Character.MovablePosition.Vertical.MAX;
