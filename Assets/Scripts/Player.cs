@@ -49,6 +49,11 @@ public class Player : MonoBehaviour {
 				transform.Translate(0, -movingSpeed, 0);
 			}
 		}
+		
+		if(input.Shot()){
+			shot.Emit();
+		}
+
 		/*
         this.DeactivateAllForce();
 		
@@ -70,10 +75,6 @@ public class Player : MonoBehaviour {
 			ForceMap[FORCE_RIGHT].Activate();
 		}
 		*/
-
-		if(input.Shot()){
-			shot.Emit();
-		}
 	}
 	
 	private bool isMoving()
