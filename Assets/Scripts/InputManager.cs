@@ -10,7 +10,7 @@ public class InputManager {
 	public bool Down(){
 		return Input.GetKey(KeyCode.DownArrow);
 	}
-	
+	/*
 	public bool Left(){
 		return Input.GetKey(KeyCode.LeftArrow);
 	}
@@ -18,7 +18,8 @@ public class InputManager {
 	public bool Right(){
 		return Input.GetKey(KeyCode.RightArrow);
 	}
-	
+	*/
+
 	public bool Shot(){
 		return Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.Space);
 	}
