@@ -38,6 +38,24 @@ public class Bullet : Particle {
 
     private void OnTriggerEnter(Collider collider)
     {
+        Debug.Log("2222");
+        Enemy enemy = collider.gameObject.GetComponent<Enemy>();
+        if (enemy != null && this.Iff == 0)
+        {
+            enemy.Damage(1);
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Debug.Log("Player!!");
+            Player player = collider.gameObject.GetComponent<Player>();
+            if (player != null && this.Iff == 1)
+            {
+                player.timer.Seconds -= 1;
+                Destroy(this.gameObject);
+            }
+        }
+        /*
         Bullet other = collider.GetComponent<Bullet>();
         if (other != null && other.Iff != this.Iff)
         {
@@ -45,5 +63,6 @@ public class Bullet : Particle {
             this.LifePoint = Mathf.Max(this.LifePoint - damage, 0);
         }
         Debug.Log(this.gameObject.name + " : HP : " + this.LifePoint);
+         * */
     }
 }

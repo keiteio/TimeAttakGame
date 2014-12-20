@@ -6,9 +6,13 @@ public class EnemyManager : MonoBehaviour {
 
     public int EncounterSec;
 
-    public GameObject EnemyPrefab;
+    public GameObject EnemyPrefab1;
+    public GameObject EnemyPrefab2;
 
     public Main main;
+
+    public int EnemiesBeforeBoss;
+    private int bossCounter = 0;
 
     private Dictionary<LineType, Enemy> enemies;
 
@@ -42,12 +46,22 @@ public class EnemyManager : MonoBehaviour {
                 lastInitiation = Time.time;
             }
         }
-        
     }
 
     public void InitiateEnemy(LineType line)
     {
-        GameObject obj = Instantiate(EnemyPrefab) as GameObject;
+        GameObject obj;
+        if (bossCounter >= EnemiesBeforeBoss)
+        {
+            obj = Instantiate(EnemyPrefab2) as GameObject;
+            bossCounter = 0;
+        }
+        else
+        {
+            obj = Instantiate(EnemyPrefab1) as GameObject;
+            bossCounter += 1;
+        }
+
         obj.transform.parent = transform;
 
         Enemy e = obj.GetComponent<Enemy>();
@@ -57,9 +71,9 @@ public class EnemyManager : MonoBehaviour {
 
         switch (line)
         {
-            case LineType.UPPER: pos.y = 1.6f; break;
+            case LineType.UPPER: pos.y = 1.93f; break;
             case LineType.MIDDLE: pos.y = 0; break;
-            case LineType.LOWER: pos.y = -1.6f; break;
+            case LineType.LOWER: pos.y = -1.93f; break;
         }
 
         pos.x = 4.2f;
@@ -100,26 +114,39 @@ public class EnemyManager : MonoBehaviour {
             }
         }
 
+
+        List<LineType> empty = new List<LineType>();
         if (upper)
         {
             Debug.Log("UPPER");
-            return LineType.UPPER;
+            empty.Add(LineType.UPPER);
         }
-        else if (middle)
+        if (middle)
         {
             Debug.Log("MIDDLE");
-            return LineType.MIDDLE;
+            empty.Add(LineType.MIDDLE);
         }
-        else if (lower)
+        if (lower)
         {
             Debug.Log("LOWER");
-            return LineType.LOWER;
+            empty.Add(LineType.LOWER);
         }
-        else
+
+        if (empty.Count == 0)
         {
             Debug.Log("NONE");
             return LineType.NONE;
         }
+        else
+        {
+            return empty[(int)(Mathf.Floor(Random.value * empty.Count))];
+        }
+    }
 
+    bool BossEncountered()
+    {
+        return enemies[LineType.UPPER].HitPointMax != 1 ||
+               enemies[LineType.MIDDLE].HitPointMax != 1 ||
+               enemies[LineType.LOWER].HitPointMax != 1;
     }
 }

@@ -8,17 +8,12 @@ public class Player : MonoBehaviour {
 	private bool movingUp = false;
 	private bool movingDown = false;
 	
-	/*
-    private GameObject moveArea;
-	*/
+    public GameTimer timer;
+
 	private Emitter shot;
 
 	// Use this for initialization
 	new void Start() {
-		/*
-		base.Start();
-		moveArea = GameObject.Find("MoveArea");
-		*/
 		shot = GetComponent<Emitter>();
 	}
 
@@ -49,32 +44,11 @@ public class Player : MonoBehaviour {
 				transform.Translate(0, -movingSpeed, 0);
 			}
 		}
-		
-		if(input.Shot()){
+
+        if (input.Shot() && !isMoving())
+        {
 			shot.Emit();
 		}
-
-		/*
-        this.DeactivateAllForce();
-		
-		if (input.Up() && this.Y <= moveAreaTop())
-        {
-			ForceMap[FORCE_UP].Activate();
-        }
-        else if (input.Down() && this.Y >= moveAreaBottom())
-        {
-			ForceMap[FORCE_DOWN].Activate();
-		}
-
-        if (input.Left() && this.X >= moveAreaLeft())
-        {
-			ForceMap[FORCE_LEFT].Activate();
-        }
-        else if (input.Right() && this.X <= moveAreaRight())
-        {
-			ForceMap[FORCE_RIGHT].Activate();
-		}
-		*/
 	}
 	
 	private bool isMoving()
@@ -91,40 +65,4 @@ public class Player : MonoBehaviour {
 		return transform.localPosition.y <= Const.Character.MovablePosition.Vertical.MIN;
 	}
 	
-	/*
-	private void OnMoveUp()
-	{
-		other.renderer.material.color = Color.green;
-	}
-
-    private void OnTriggerEnter(Collider other)
-    {
-        other.renderer.material.color = Color.green;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        other.renderer.material.color = Color.grey;
-    }
-
-    float moveAreaLeft()
-    {
-        return -moveArea.transform.localScale.x / 2;
-    }
-
-    float moveAreaRight()
-    {
-        return moveArea.transform.localScale.x / 2;
-    }
-
-    float moveAreaTop()
-    {
-        return moveArea.transform.localScale.y / 2;
-    }
-
-    float moveAreaBottom()
-    {
-        return -moveArea.transform.localScale.y / 2;
-    }
-    */
 }
