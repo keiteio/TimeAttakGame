@@ -21,6 +21,6 @@ public class InputManager {
 	*/
 
 	public bool Shot(){
-		return Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.Space);
+		return Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.Space);
 	}
 }

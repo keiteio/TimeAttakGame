@@ -57,9 +57,9 @@ public class EnemyManager : MonoBehaviour {
 
         switch (line)
         {
-            case LineType.UPPER: pos.y = 1.6f; break;
+            case LineType.UPPER: pos.y = 1.93f; break;
             case LineType.MIDDLE: pos.y = 0; break;
-            case LineType.LOWER: pos.y = -1.6f; break;
+            case LineType.LOWER: pos.y = -1.93f; break;
         }
 
         pos.x = 4.2f;
@@ -128,4 +128,5 @@ public class EnemyManager : MonoBehaviour {
             return empty[(int)(Mathf.Floor(Random.value * empty.Count))];
         }
     }
+
 }

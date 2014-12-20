@@ -51,32 +51,11 @@ public class Player : MonoBehaviour {
 				transform.Translate(0, -movingSpeed, 0);
 			}
 		}
-		
-		if(input.Shot()){
+
+        if (input.Shot() && !isMoving())
+        {
 			shot.Emit();
 		}
-
-		/*
-        this.DeactivateAllForce();
-		
-		if (input.Up() && this.Y <= moveAreaTop())
-        {
-			ForceMap[FORCE_UP].Activate();
-        }
-        else if (input.Down() && this.Y >= moveAreaBottom())
-        {
-			ForceMap[FORCE_DOWN].Activate();
-		}
-
-        if (input.Left() && this.X >= moveAreaLeft())
-        {
-			ForceMap[FORCE_LEFT].Activate();
-        }
-        else if (input.Right() && this.X <= moveAreaRight())
-        {
-			ForceMap[FORCE_RIGHT].Activate();
-		}
-		*/
 	}
 	
 	private bool isMoving()
