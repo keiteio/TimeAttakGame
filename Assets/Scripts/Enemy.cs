@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour {
 
     public int Score;
 
-    public int WaitSecForAttack;
+    public float WaitSecForAttack;
 
     public GameTimer timer;
 
@@ -30,11 +30,18 @@ public class Enemy : MonoBehaviour {
 
     public EnemyManager manager;
 
+    public Emitter emitter;
+
     public LineType Line { get; set; }
 
-    float lastAttack = 0;
+    float birthTime;
 
-	// Use this for initialization
+    void Awake()
+    {
+        birthTime = Time.time;
+    }
+
+    // Use this for initialization
 	void Start () {
         HitPoint = HitPointMax;
         IsDead = false;
@@ -49,12 +56,12 @@ public class Enemy : MonoBehaviour {
         else
         {
             // 攻撃ウェイト
-            
-            if (!IsDead && Time.time - lastAttack > WaitSecForAttack)
+            /*
+            if (!emitter.Activation && Time.time - birthTime > WaitSecForAttack)
             {
-                Debug.Log("Attack!!!");
-                Attack();
+                emitter.Activate();
             }
+             * */
         }
 	}
     
@@ -68,10 +75,5 @@ public class Enemy : MonoBehaviour {
             // 取り敢えず直ぐ壊す。
             manager.OnEnemyDead(Line);
         }
-    }
-
-    public void Attack(){
-        //timer.Seconds -= AttackSeconds;
-        lastAttack = Time.time;
     }
 }

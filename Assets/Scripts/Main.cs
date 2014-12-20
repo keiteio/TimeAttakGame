@@ -19,7 +19,8 @@ public class Main : MonoBehaviour {
         EnemyManager em = obj.GetComponent<EnemyManager>();
         em.main = this;
 
-        Instantiate(PlayerPrefab);
+        Player player = (Instantiate(PlayerPrefab) as GameObject).GetComponent<Player>();
+        player.timer = timer;
 	}
 	
 	// Update is called once per frame

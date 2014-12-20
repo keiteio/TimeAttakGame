@@ -8,6 +8,8 @@ public class Player : MonoBehaviour {
 	private bool movingUp = false;
 	private bool movingDown = false;
 	
+    public GameTimer timer;
+
 	/*
     private GameObject moveArea;
 	*/
