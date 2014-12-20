@@ -14,6 +14,8 @@ public class EnemyManager : MonoBehaviour {
 
     float lastInitiation = 0;
 
+    bool initiationStopped = false;
+
 	// Use this for initialization
 	void Start () {
         enemies = new Dictionary<LineType,Enemy>();
@@ -21,13 +23,26 @@ public class EnemyManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (enemies.Count < 3 && Time.time - lastInitiation > EncounterSec)
+        if (!initiationStopped)
         {
-            LineType line = EmptyLine();
-            if (LineType.NONE != line) {
-                InitiateEnemy(line);
+            if (enemies.Count < 3 && Time.time - lastInitiation > EncounterSec)
+            {
+                LineType line = EmptyLine();
+                if (LineType.NONE != line)
+                {
+                    InitiateEnemy(line);
+                }
             }
         }
+        else
+        {
+            if (enemies.Count < 3)
+            {
+                initiationStopped = false;
+                lastInitiation = Time.time;
+            }
+        }
+        
     }
 
     public void InitiateEnemy(LineType line)
@@ -53,10 +68,17 @@ public class EnemyManager : MonoBehaviour {
         enemies[line] = e;
 
         lastInitiation = Time.time;
+
+        if (enemies.Count >= 3)
+        {
+            initiationStopped = true;
+        }
     }
 
     public void OnEnemyDead(LineType line)
     {
+
+        GameObject.Destroy(enemies[line].gameObject);
         enemies.Remove(line);
     }
 

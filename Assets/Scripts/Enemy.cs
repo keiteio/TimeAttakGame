@@ -64,7 +64,6 @@ public class Enemy : MonoBehaviour {
             IsDead = true;
 
             // 取り敢えず直ぐ壊す。
-            GameObject.Destroy(this);
             manager.OnEnemyDead(Line);
         }
     }
