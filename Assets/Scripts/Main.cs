@@ -7,6 +7,7 @@ public class Main : MonoBehaviour {
     public GameTimer timer;
 
     public GameObject EnemyManagerPrefab;
+    public GameObject PlayerPrefab;
     public Text RemainedTimeText;
     public Text TotalScoreText;
 
@@ -17,6 +18,8 @@ public class Main : MonoBehaviour {
 
         EnemyManager em = obj.GetComponent<EnemyManager>();
         em.main = this;
+
+        Instantiate(PlayerPrefab);
 	}
 	
 	// Update is called once per frame
